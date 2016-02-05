@@ -1,0 +1,44 @@
+----item----
+version: 1
+id: {02895CB4-5B78-4798-8894-0C5492EEBD3A}
+database: master
+path: /sitecore/content/Settings/Azure CDN Manager/Azure CDN Profiles/Profile 1
+parent: {42EE43DF-AEFA-4D3A-A51E-C8D6866A783C}
+name: Profile 1
+master: {00000000-0000-0000-0000-000000000000}
+template: {F74261A3-917F-4719-9043-D778289A44CC}
+templatekey: Azure CDN Profile
+
+----version----
+language: en
+version: 1
+revision: c59d8109-ede3-424c-8671-3605ec8dc5b2
+
+----field----
+field: {25BED78C-4957-4165-998A-CA1B52F67497}
+name: __Created
+key: __created
+content-length: 16
+
+20160204T180910Z
+----field----
+field: {8CDC337E-A112-42FB-BBB4-4143751E123F}
+name: __Revision
+key: __revision
+content-length: 36
+
+c59d8109-ede3-424c-8671-3605ec8dc5b2
+----field----
+field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
+name: __Updated
+key: __updated
+content-length: 16
+
+20160204T180910Z
+----field----
+field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
+name: __Updated by
+key: __updated by
+content-length: 14
+
+sitecore\admin

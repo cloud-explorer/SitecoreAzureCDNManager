@@ -1,0 +1,65 @@
+----item----
+version: 1
+id: {71F9AF9A-C368-47BF-B799-BB725E3EE504}
+database: master
+path: /sitecore/templates/Azure CDN Manager/Azure Settings/__Standard Values
+parent: {52CC3AE0-0318-4ECC-A57A-B5A4BD0A2D72}
+name: __Standard Values
+master: {00000000-0000-0000-0000-000000000000}
+template: {52CC3AE0-0318-4ECC-A57A-B5A4BD0A2D72}
+templatekey: Azure Settings
+
+----field----
+field: {BACB5608-EFFD-4F44-8543-48669F72CA63}
+name: AuthMethod
+key: authmethod
+content-length: 38
+
+{071D3B28-FA2C-4E47-BB2C-564C74CBBAA5}
+----version----
+language: en
+version: 1
+revision: aa9a1884-20f4-4657-95f6-09d465827a4a
+
+----field----
+field: {52807595-0F8F-4B20-8D2A-CB71D28C6103}
+name: __Owner
+key: __owner
+content-length: 14
+
+sitecore\admin
+----field----
+field: {25BED78C-4957-4165-998A-CA1B52F67497}
+name: __Created
+key: __created
+content-length: 16
+
+20160204T183725Z
+----field----
+field: {5DD74568-4D4B-44C1-B513-0AF5F4CDA34F}
+name: __Created by
+key: __created by
+content-length: 14
+
+sitecore\admin
+----field----
+field: {8CDC337E-A112-42FB-BBB4-4143751E123F}
+name: __Revision
+key: __revision
+content-length: 36
+
+aa9a1884-20f4-4657-95f6-09d465827a4a
+----field----
+field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
+name: __Updated
+key: __updated
+content-length: 16
+
+20160205T140435Z
+----field----
+field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
+name: __Updated by
+key: __updated by
+content-length: 14
+
+sitecore\admin

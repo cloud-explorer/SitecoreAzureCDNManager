@@ -1,0 +1,65 @@
+----item----
+version: 1
+id: {A2E34141-9AC2-45C6-A4D3-E339C053C23F}
+database: master
+path: /sitecore/content/Settings/Azure CDN Manager/Azure Auth Setttings/Default Setting
+parent: {F75316C5-2DD0-4369-9E9E-768BDA97E52C}
+name: Default Setting
+master: {00000000-0000-0000-0000-000000000000}
+template: {52CC3AE0-0318-4ECC-A57A-B5A4BD0A2D72}
+templatekey: Azure Settings
+
+----field----
+field: {6E32C62C-791D-408B-AA8D-9FFF26424161}
+name: TenantId
+key: tenantid
+content-length: 23
+
+unwomen.onmicrosoft.com
+----field----
+field: {33574737-7CC6-4D7D-9FBC-06B78F51293C}
+name: ClientId
+key: clientid
+content-length: 36
+
+b64d7f82-4524-48eb-9773-b15af0316bf4
+----field----
+field: {A31BE5D5-F241-4D06-89D0-63174F37B0EA}
+name: RedirectUrl
+key: redirecturl
+content-length: 28
+
+http://localhost/unw-arm-dev
+----version----
+language: en
+version: 1
+revision: 69deccfc-497e-4c8c-bbd4-49bd4e7fd291
+
+----field----
+field: {25BED78C-4957-4165-998A-CA1B52F67497}
+name: __Created
+key: __created
+content-length: 16
+
+20160204T184004Z
+----field----
+field: {8CDC337E-A112-42FB-BBB4-4143751E123F}
+name: __Revision
+key: __revision
+content-length: 36
+
+69deccfc-497e-4c8c-bbd4-49bd4e7fd291
+----field----
+field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
+name: __Updated
+key: __updated
+content-length: 16
+
+20160204T184026Z
+----field----
+field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
+name: __Updated by
+key: __updated by
+content-length: 14
+
+sitecore\admin

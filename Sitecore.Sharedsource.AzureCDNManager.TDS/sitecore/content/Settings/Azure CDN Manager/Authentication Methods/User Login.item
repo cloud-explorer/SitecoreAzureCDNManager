@@ -1,0 +1,65 @@
+----item----
+version: 1
+id: {071D3B28-FA2C-4E47-BB2C-564C74CBBAA5}
+database: master
+path: /sitecore/content/Settings/Azure CDN Manager/Authentication Methods/User Login
+parent: {01C17C6E-4177-4782-9966-B932D5AC2595}
+name: User Login
+master: {00000000-0000-0000-0000-000000000000}
+template: {D2089B8F-2F57-4F32-ADE8-A2521B4E5A9D}
+templatekey: AuthMethod
+
+----field----
+field: {BA3F86A2-4A1C-4D78-B63D-91C2779C1B5E}
+name: __Sortorder
+key: __sortorder
+content-length: 2
+
+50
+----version----
+language: en
+version: 1
+revision: 9450a75d-6c5e-4183-b50b-7bf7e1b66c75
+
+----field----
+field: {52807595-0F8F-4B20-8D2A-CB71D28C6103}
+name: __Owner
+key: __owner
+content-length: 14
+
+sitecore\admin
+----field----
+field: {25BED78C-4957-4165-998A-CA1B52F67497}
+name: __Created
+key: __created
+content-length: 16
+
+20160205T140346Z
+----field----
+field: {5DD74568-4D4B-44C1-B513-0AF5F4CDA34F}
+name: __Created by
+key: __created by
+content-length: 14
+
+sitecore\admin
+----field----
+field: {8CDC337E-A112-42FB-BBB4-4143751E123F}
+name: __Revision
+key: __revision
+content-length: 36
+
+9450a75d-6c5e-4183-b50b-7bf7e1b66c75
+----field----
+field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
+name: __Updated
+key: __updated
+content-length: 16
+
+20160205T140354Z
+----field----
+field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
+name: __Updated by
+key: __updated by
+content-length: 14
+
+sitecore\admin
