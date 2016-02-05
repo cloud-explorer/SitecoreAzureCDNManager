@@ -1,18 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿#region
+
+using System;
+using System.Runtime.Caching;
 using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Sitecore.Data.Items;
 
+#endregion
+
 namespace Sitecore.Sharedsource.AzureCDNManager
 {
-    public class AzureResourceManager 
+    public class AzureResourceManager
     {
-        // This method taken from: http://msdn.microsoft.com/en-us/library/azure/dn790557.aspx
-        public string GetAuthorizationHeader(Item azureSetting)
+        //private readonly string accessToken;
+        //private readonly string cacheKey;
+        //private readonly ObjectCache cache;
+
+        //public AzureResourceManager()
+        //{
+        //    //Try to retrive the access token from the cache if available
+        //    //The cache key will be unique per user
+        //    cacheKey = string.Format("{0}_access_token", Context.User.Profile.Email.ToLower());
+        //    accessToken = string.Empty;
+        //    cache = MemoryCache.Default;
+        //    object o = cache[cacheKey];
+        //    if (o != null)
+        //    {
+        //        accessToken = o.ToString();
+        //    }
+        //}
+
+        public string GetAccessTokenUsingUserCredentials(Item azureSetting)
         {
             string tenantId;
             string clientId;
@@ -24,18 +42,21 @@ namespace Sitecore.Sharedsource.AzureCDNManager
             {
                 return string.Empty;
             }
+
+           // if (!string.IsNullOrEmpty(accessToken)) return accessToken;
+
             Uri redirectUrl = new Uri(url);
             AuthenticationResult result = null;
-
+            //Get an authentication context for the specified tenant
             var context = new AuthenticationContext("https://login.windows.net/" + tenantId);
-
+            //Spwan a new thread to let the user log in and acquire the access token
             var thread = new Thread(() =>
             {
                 result = context.AcquireToken(
-                  "https://management.core.windows.net/",
-                  clientId,
-                  redirectUrl,
-                  PromptBehavior.Always);
+                    "https://management.core.windows.net/",
+                    clientId,
+                    redirectUrl,
+                    PromptBehavior.Always);
             });
 
             thread.SetApartmentState(ApartmentState.STA);
@@ -47,27 +68,15 @@ namespace Sitecore.Sharedsource.AzureCDNManager
             {
                 throw new InvalidOperationException("Failed to obtain the JWT token");
             }
-
+            //Set the access token to be returned
             string token = result.AccessToken;
+            //Set the cache value. This entry will expiry at the same time when the access token ceases to be valid
+           // cache.Set(cacheKey, accessToken, result.ExpiresOn);
             return token;
         }
 
-        private static void SetAzureAuthAppInformation(Item azureSetting, out string tenantId, out string clientId,
-            out string url)
-        {
-            //Check if the azure setting node is empty and it inherits from the azure settings template
-            if (azureSetting == null || azureSetting.TemplateID != Constants.AzureSettingsTemplateId)
-            {
-                tenantId = clientId = url = string.Empty; 
-                return;
-            }
-            tenantId = azureSetting["TenantId"];
-            clientId = azureSetting["ClientId"];
-            url = azureSetting["RedirectUrl"];
-        }
 
-
-        public string GetAuthTokenUsingUserNamePassword(Item azureSetting)
+        public string GetAccessTokenUsingServiceAccount(Item azureSetting)
         {
             string tenantId;
             string clientId;
@@ -79,21 +88,39 @@ namespace Sitecore.Sharedsource.AzureCDNManager
             {
                 return string.Empty;
             }
+            //if (!string.IsNullOrEmpty(accessToken)) return accessToken;
             var authenticationContext = new AuthenticationContext("https://login.windows.net/" + tenantId);
-            //var credential = new ClientCredential(clientId: clientId, clientSecret: clientSecret);
-
-            var credential = new UserCredential("automated-service@unwomen.onmicrosoft.com", "Welcome!23");
-
-            var result = authenticationContext.AcquireToken(resource: "https://management.core.windows.net/", clientId: clientId, userCredential: credential);
-
+            //get the service account user name and password from the settings node
+            string userName = azureSetting["Service Account User Name"];
+            string password = azureSetting["Service Account Password"];
+            //Create a user credential object using the specified service account user name and password
+            var credential = new UserCredential(userName, password);
+            //Issue a request to obtain the access token
+            var result = authenticationContext.AcquireToken("https://management.core.windows.net/", clientId, credential);
             if (result == null)
             {
                 throw new InvalidOperationException("Failed to obtain the JWT token");
             }
-
+            //Set the access token to be returned
             string token = result.AccessToken;
-
+            //Set the cache value. This entry will expiry at the same time when the access token ceases to be valid
+            //cache.Set(cacheKey, accessToken, result.ExpiresOn);
             return token;
+        }
+
+        private static void SetAzureAuthAppInformation(Item azureSetting, out string tenantId, out string clientId,
+            out string url)
+        {
+            //Check if the azure setting node is empty and it inherits from the azure settings template
+            if (azureSetting == null || azureSetting.TemplateID != AzureCDNConstants.AzureSettingsTemplateId)
+            {
+                tenantId = clientId = url = string.Empty;
+                return;
+            }
+            //Get the tentant Id, client Id and redirect URL from the settings node
+            tenantId = azureSetting["TenantId"];
+            clientId = azureSetting["ClientId"];
+            url = azureSetting["RedirectUrl"];
         }
     }
 }
