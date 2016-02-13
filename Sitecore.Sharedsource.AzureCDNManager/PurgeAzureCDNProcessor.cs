@@ -7,6 +7,7 @@ using Sitecore.Caching;
 using Sitecore.Common;
 using Sitecore.Data;
 using Sitecore.Data.Engines;
+using Sitecore.Data.Fields;
 using Sitecore.Data.Items;
 using Sitecore.Data.Managers;
 using Sitecore.Diagnostics;
@@ -24,6 +25,7 @@ namespace Sitecore.Sharedsource.AzureCDNManager
         private readonly string LastUpdate = "AzureCDN_LastPurgeTime";
         private List<ID> cacheQueue = new List<ID>();
         private List<string> urls = new List<string>();
+        private AzureResourceManager _resourceManager = new AzureResourceManager();
         public override void Process(PublishContext context)
         {
             Assert.ArgumentNotNull(context, "context");
@@ -47,22 +49,33 @@ namespace Sitecore.Sharedsource.AzureCDNManager
         protected virtual void ProcessPublishedItems(PublishContext context)
         {
             ProcessHistoryStorage(context.PublishOptions.TargetDatabase);
+            string accessToken = string.Empty;;
             foreach (ID id in cacheQueue)
             {
                 Item publishedItem = context.PublishOptions.TargetDatabase.GetItem(id);
                 //only work with items that inherit from the AzureCachingInfoTemplate
-                if (!publishedItem.Template.InheritsFrom(AzureCDNConstants.AzureCachingInfoTemplateId))
+                if (!publishedItem.InheritsFrom(AzureCDNConstants.AzureCachingInfoTemplateId))
                 {
                     continue;
                 }
-                if (publishedItem.Paths.IsMediaItem)
+                ReferenceField azureCDNProfileField = publishedItem.Fields["Azure CDN Profile"];
+                if(azureCDNProfileField == null || azureCDNProfileField.TargetItem == null) continue;
+                Item azureCDNProfile = azureCDNProfileField.TargetItem;
+                ReferenceField azureSettingField = azureCDNProfile.Fields["Azure Auth Setting"];
+                //If Azure settings field cannot be found, silently ignore
+                if(azureSettingField == null || azureSettingField.TargetItem == null) continue;
+                if (string.IsNullOrEmpty(accessToken))
                 {
-                    string mediaUrl = StringUtil.EnsurePrefix('/', Sitecore.Resources.Media.MediaManager.GetMediaUrl(publishedItem));
+                    accessToken = _resourceManager.GetAccessTokenUsingServiceAccount(azureSettingField.TargetItem);
+                }
+                if (azureCDNProfile.Paths.IsMediaItem)
+                {
+                    string mediaUrl = StringUtil.EnsurePrefix('/', Sitecore.Resources.Media.MediaManager.GetMediaUrl(azureCDNProfile));
                     urls.Add(mediaUrl);
                 }
                 else
                 {
-                    string url = StringUtil.EnsurePrefix('/', LinkManager.GetItemUrl(publishedItem));
+                    string url = StringUtil.EnsurePrefix('/', LinkManager.GetItemUrl(azureCDNProfile));
                     urls.Add(url);
                 }
 

@@ -12,24 +12,6 @@ namespace Sitecore.Sharedsource.AzureCDNManager
 {
     public class AzureResourceManager
     {
-        //private readonly string accessToken;
-        //private readonly string cacheKey;
-        //private readonly ObjectCache cache;
-
-        //public AzureResourceManager()
-        //{
-        //    //Try to retrive the access token from the cache if available
-        //    //The cache key will be unique per user
-        //    cacheKey = string.Format("{0}_access_token", Context.User.Profile.Email.ToLower());
-        //    accessToken = string.Empty;
-        //    cache = MemoryCache.Default;
-        //    object o = cache[cacheKey];
-        //    if (o != null)
-        //    {
-        //        accessToken = o.ToString();
-        //    }
-        //}
-
         public string GetAccessTokenUsingUserCredentials(Item azureSetting)
         {
             string tenantId;
@@ -42,9 +24,6 @@ namespace Sitecore.Sharedsource.AzureCDNManager
             {
                 return string.Empty;
             }
-
-           // if (!string.IsNullOrEmpty(accessToken)) return accessToken;
-
             Uri redirectUrl = new Uri(url);
             AuthenticationResult result = null;
             //Get an authentication context for the specified tenant
@@ -70,8 +49,6 @@ namespace Sitecore.Sharedsource.AzureCDNManager
             }
             //Set the access token to be returned
             string token = result.AccessToken;
-            //Set the cache value. This entry will expiry at the same time when the access token ceases to be valid
-           // cache.Set(cacheKey, accessToken, result.ExpiresOn);
             return token;
         }
 
@@ -88,7 +65,6 @@ namespace Sitecore.Sharedsource.AzureCDNManager
             {
                 return string.Empty;
             }
-            //if (!string.IsNullOrEmpty(accessToken)) return accessToken;
             var authenticationContext = new AuthenticationContext("https://login.windows.net/" + tenantId);
             //get the service account user name and password from the settings node
             string userName = azureSetting["Service Account User Name"];
@@ -103,8 +79,6 @@ namespace Sitecore.Sharedsource.AzureCDNManager
             }
             //Set the access token to be returned
             string token = result.AccessToken;
-            //Set the cache value. This entry will expiry at the same time when the access token ceases to be valid
-            //cache.Set(cacheKey, accessToken, result.ExpiresOn);
             return token;
         }
 
