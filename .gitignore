@@ -240,6 +240,7 @@ _Pvt_Extensions
 [Dd]ata/
 [Pp]ackages
 [Ll]aunchSitecoreTDS-master/
+[Ll]ib/
 packages/Microsoft.AspNet.Mvc.5.2.3/Content/Web.config.install.xdt
 packages/Microsoft.AspNet.Mvc.5.2.3/Content/Web.config.uninstall.xdt
 packages/Microsoft.AspNet.Mvc.5.2.3/lib/net45/System.Web.Mvc.dll

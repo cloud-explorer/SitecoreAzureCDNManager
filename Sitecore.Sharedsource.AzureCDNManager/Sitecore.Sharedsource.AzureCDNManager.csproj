@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -90,8 +91,9 @@
     <Compile Include="AzureItemToPurge.cs" />
     <Compile Include="AzureResourceManager.cs" />
     <Compile Include="AzureCDNConstants.cs" />
-    <Compile Include="CDNCacheControlProcessor.cs" />
+    <Compile Include="CDNCacheControlHeadersProcessor.cs" />
     <Compile Include="CDNScriptManager.cs" />
+    <Compile Include="CDNUrlMediaProvider.cs" />
     <Compile Include="Stylesheets.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PurgeAzureCDNProcessor.cs" />
